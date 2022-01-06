@@ -4,6 +4,7 @@ import HeroPost from "../components/hero-post";
 import Intro from "../components/intro";
 import Layout from "../components/layout";
 import {
+  getBanner,
   getAllPostsForHome,
   getAllPostsWithSlug,
   getTestPosts,
@@ -11,13 +12,13 @@ import {
 import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
 
-export default function Index({ preview, allPosts, testPost }) {
+export default function Index({ preview, allPosts, allBanners }) {
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
-  const banner = testPost[0];
+  const banner = allBanners[0];
   return (
     <>
-      {console.log(testPost)}
+      {console.log(allBanners)}
       <Layout preview={preview}>
         <Head>
           <title>Next.js Blog Example with {CMS_NAME}</title>
@@ -36,7 +37,8 @@ export default function Index({ preview, allPosts, testPost }) {
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
 
-          <div>{banner.title}</div>
+          <div>{banner && banner.callToAction}</div>
+          <div>{banner && banner.apricot}</div>
         </Container>
       </Layout>
     </>
@@ -45,9 +47,9 @@ export default function Index({ preview, allPosts, testPost }) {
 
 export async function getStaticProps({ preview = false }) {
   const allPosts = (await getAllPostsForHome(preview)) ?? [];
-  const testPost = (await getTestPosts(preview)) ?? [];
+  const allBanners = (await getBanner(preview)) ?? [];
 
   return {
-    props: { preview, allPosts, testPost },
+    props: { preview, allPosts, allBanners },
   };
 }
