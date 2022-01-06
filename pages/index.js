@@ -11,6 +11,7 @@ import {
 } from "../lib/api";
 import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
+import Banner from "./banner";
 
 export default function Index({ preview, allPosts, allBanners }) {
   const heroPost = allPosts[0];
@@ -30,15 +31,19 @@ export default function Index({ preview, allPosts, allBanners }) {
               title={heroPost.title}
               coverImage={heroPost.coverImage}
               date={heroPost.date}
-              // author={heroPost.author}
+              author={heroPost.author}
               slug={heroPost.slug}
               excerpt={heroPost.excerpt}
             />
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-
-          <div>{banner && banner.callToAction}</div>
-          <div>{banner && banner.apricot}</div>
+          {banner && (
+            <Banner
+              callToAction={banner.callToAction}
+              image={banner.image}
+              text={banner.text}
+            />
+          )}
         </Container>
       </Layout>
     </>

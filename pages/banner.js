@@ -1,11 +1,11 @@
 import React from "react";
 
-const Banner = ({ callToCstion, text, image }) => {
+const Banner = ({ callToAction, text, image }) => {
   return (
     <div>
-      <img src={image} />
+      <img src={image.url} />
       <p>{text}</p>
-      <a>{callToCstion}</a>
+      <a>{callToAction}</a>
     </div>
   );
 };
